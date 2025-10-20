@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Universidad de la Felicidad</title>
   <link rel="stylesheet" href="../HappyUniversiry/css/style.css" />
 </head>
+  
+  <div id="cele-modal" class="modal hidden" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-card" role="document">
+      <img src="../HappyUniversiry/img/GifLisa.gif" alt="Celebracion Lisa" class="modal-img" />
+      <h3>¡Gracias por compartir!</h3>
+      <p>Tu mensaje se agregó al muro 💖</p>
+      <button id="close-modal" class="btn small">Listo</button>
+    </div>
+    <div id="confetti-layer" aria-hidden="true"></div>
+  </div>
+
+ 
+ <audio id="cele-audio" src="audio/Be_Happy.mp3" preload="auto"></audio>
 
 <body>
   <header class="site-header">
@@ -57,8 +69,6 @@
         </figure>
       </div>
     </section>
-
-    <!-- OPINIÓN -->
     <section id="opinion" class="card">
       <h2>Mi opinión</h2>
       <p>
@@ -75,37 +85,28 @@
       </p>
     </section>
 
-    <!-- INTERACTIVO -->
+    <!-- MURO DE AGRADECIMIENTOS -->
     <section id="interactivo" class="card interactive">
-      <h2>Tu medidor de felicidad</h2>
-      <p class="sub">Suma sonrisas y descubre micro-acciones para mejorar tu día.</p>
+      <h2>Muro de Agradecimientos 💌</h2>
+      <p class="sub">Comparte algo por lo que te sientas agradecido hoy. Cada mensaje crea felicidad compartida 🌞</p>
 
-      <div class="counter">
-        <div class="count" id="count">0</div>
-        <button id="btn-sonrisa" class="btn">+1 sonrisa 😊</button>
-        <div class="progress">
-          <div id="bar" class="bar" style="width: 0%"></div>
-        </div>
-        <small id="meta" class="meta">Meta diaria: 10 sonrisas</small>
+      <div class="muro-input">
+        <textarea id="mensaje" placeholder="Escribe aquí tu mensaje de agradecimiento..."></textarea>
+        <button id="btn-agregar" class="btn">Agregar al muro</button>
       </div>
 
-      <div class="ideas">
-        <button id="btn-idea" class="btn ghost">Dame una idea</button>
-        <p id="idea" class="idea">Haz clic para una micro-acción de felicidad ✨</p>
-      </div>
-
-      <!-- contenedor para las chispas/emoji -->
-      <div id="spark-layer" aria-hidden="true"></div>
+      <div id="muro" class="muro"></div>
     </section>
   </main>
 
+
   <footer class="site-footer">
     <div class="container">
-      <p>Hecho con ♡ para promover bienestar y comunidad.</p>
+      <p>Hecho con ♡ para promover bienestar a la comunidad.</p>
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="js/script.js"></script>
 </body>
 
 </html>
