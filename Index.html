@@ -1,97 +1,111 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Festival de la Felicidad — Mi Experiencia</title>
-  <meta name="description" content="Página que refleja mi experiencia y aprendizajes del Festival de la Felicidad.>
+  <title>Universidad de la Felicidad</title>
+  <link rel="stylesheet" href="../HappyUniversiry/css/style.css" />
 </head>
+
 <body>
   <header class="site-header">
-    <div class="wrap header-inner">
-      <div class="brand">
-        <span class="logo" aria-hidden="true"></span>
-        <strong>Festival de la Felicidad</strong>
-      </div>
-      <nav class="nav">
+    <div class="container">
+      <h1>Universidad de la Felicidad</h1>
+      <nav>
         <a href="#galeria">Galería</a>
-        <a href="#reflexion">Reflexión</a>
-        <a href="#interaccion">Interacción</a>
+        <a href="#opinion">Mi opinión</a>
+        <a href="#interactivo">Interactivo</a>
       </nav>
     </div>
   </header>
 
-  <main class="wrap">
-    <section class="hero">
-      <div class="hero-text">
-        <h1>Mi experiencia y aprendizajes</h1>
-        <p class="subtitle">Tecnología al servicio del bienestar, la creatividad y la comunidad universitaria.</p>
-        <div class="actions">
-          <a class="btn primary" href="#interaccion"> Probar interacción</a>
-          <a class="btn" href="#galeria"> Ver galería</a>
-        </div>
-      </div>
-      <figure class="hero-figure" aria-label="Imagen destacada">
-        <img class="preview" id="heroPreview" alt="Imagen destacada del festival" src="/img/im3.jpeg" />
-      </figure>
-    </section>
-
-    <!-- Galería -->
+  <main class="container">
     <section id="galeria" class="card">
-      <header class="section-header">
-        <h2>Galería del evento</h2>
-        <p class="hint">Sube <em>tus propias</em> fotos. Se guardan en tu navegador (no se envían a ningún servidor).</p>
-      </header>
-      <div class="controls">
-        <label class="sr-only" for="fileInput">Añadir imágenes</label>
-        <input type="file" id="fileInput" accept="image/*" multiple />
-        <button class="btn ghost" id="clearGallery" type="button">Limpiar galería</button>
-      </div>
-      <div class="gallery" id="gallery" aria-live="polite"></div>
-    </section>
+      <h2>Galería del festival</h2>
+      <p class="sub">Seis momentos que transmiten comunidad, creatividad y bienestar.</p>
 
-    <!-- Reflexión (150–200 palabras) -->
-    <section id="reflexion" class="card">
-      <header class="section-header">
-        <h2>Reflexión personal</h2>
-        <p class="hint">Entre <strong>150 y 200 palabras</strong>. Puedes usar el ejemplo y adaptarlo a tu experiencia.</p>
-      </header>
-      <form id="reflectionForm">
-        <label for="reflection" class="sr-only">Escribe tu reflexión</label>
-        <textarea id="reflection" rows="8" required>
-En el Festival de la Felicidad comprobé que la tecnología universitaria puede ser un puente hacia el bienestar, no solo una herramienta académica. Escuchar experiencias sobre salud mental y comunidad me recordó que cada decisión de diseño impacta emociones cotidianas: colores accesibles, tiempos de carga bajos y lenguaje claro reducen fricción y ansiedad. También aprendí que la creatividad florece cuando el entorno invita a jugar: prototipos rápidos, pequeñas animaciones y microinteracciones que celebran logros hacen más amable la vida en el campus. Desde Programación Web puedo aportar prácticas concretas: formularios inclusivos, navegación por teclado, contraste suficiente y respeto por la privacidad. Incluso detalles mínimos —como un contador de sonrisas o mensajes de retroalimentación empática— pueden transformar una app fría en una compañía cercana. Me llevo el reto de construir páginas que cuiden la atención y promuevan encuentros: menos ruido, más significado. Diseñar para la felicidad no es cursi; es una responsabilidad técnica y humana.
-        </textarea>
-        <div class="flex between">
-          <span class="pill" id="wordCount">0 palabras</span>
-          <div class="flex gap">
-            <button class="btn" type="button" id="resetReflection">Limpiar</button>
-            <button class="btn primary" type="submit">Guardar</button>
-          </div>
-        </div>
-      </form>
-    </section>
+      <div class="grid">
+        <figure class="img-card">
+          <img src="../HappyUniversiry/img/Im.jpeg" alt="Personas riendo al aire libre" />
+          <figcaption>Tambora</figcaption>
+        </figure>
 
-    <!-- Interacción -->
-    <section id="interaccion" class="card grid-2">
-      <div>
-        <h2>Contador de sonrisas 😊</h2>
-        <p class="hint">Haz clic cuando algo te haga sonreír y comparte el total.</p>
-        <div class="flex gap">
-          <button class="btn primary" id="smileBtn" type="button">Sumar sonrisa</button>
-          <span class="pill">Total: <strong id="smileCount">0</strong></span>
-          <button class="btn" id="resetSmile" type="button" title="Reiniciar">Reiniciar</button>
-        </div>
-      </div>
-      <div>
-        <h2>Micro-animación 🎈</h2>
-        <p class="hint">Una burbuja que responde a tu cursor: pequeño recordatorio de que el juego también enseña.</p>
-        <div class="playground">
-          <div class="bubble" id="bubble" aria-hidden="true"></div>
-        </div>
+        <figure class="img-card">
+          <img src="../HappyUniversiry/img/im2.jpeg" alt="Manos formando un círculo de equipo" />
+          <figcaption>Intervencion de la PhD Elva Esther Vargas Martinez </figcaption>
+        </figure>
+
+        <figure class="img-card">
+          <img src="../HappyUniversiry/img/im3.jpeg" alt="Taller creativo con post-its de colores" />
+          <figcaption>Baile del profesor Samuel con la profesora Angela</figcaption>
+        </figure>
+
+        <figure class="img-card">
+          <img src="../HappyUniversiry/img/img4.jpeg" alt="Charlas inspiradoras con estudiantes" />
+          <figcaption>Aty Senen Zapata hablo sobre las comunidades indigenas y la felicidad</figcaption>
+        </figure>
+
+        <figure class="img-card">
+          <img src="../HappyUniversiry/img/img5.jpeg" alt="Atardecer cálido sobre el campus" />
+          <figcaption>Ciclismo urbano como camino a la felicidad con el doctor Wilson Anucharico </figcaption>
+        </figure>
+
+        <figure class="img-card">
+          <img src="../HappyUniversiry/img/im6.jpeg" alt="Grupo celebrando con confeti" />
+          <figcaption>Baile del señor Hernando Medrano</figcaption>
+        </figure>
       </div>
     </section>
 
+    <!-- OPINIÓN -->
+    <section id="opinion" class="card">
+      <h2>Mi opinión</h2>
+      <p>
+        Participar en el Festival Universidad de la Felicidad fue una experiencia muy especial que me permitió
+        reflexionar sobre cómo la felicidad y el bienestar también forman parte del aprendizaje universitario. Desde el
+        inicio, con las presentaciones culturales y las conferencias sobre temas como “Felicidad y vida cotidiana” o
+        “Ciclismo urbano como camino a la felicidad”, se sintió un ambiente lleno de energía positiva, creatividad y
+        conexión humana, donde cada actividad —desde la música hasta los espacios de conversación— recordaba que el
+        conocimiento también se construye a través de las emociones y la alegría compartida. Como estudiante de
+        desarrollo web, este festival me inspiró a pensar en cómo la tecnología puede ser una herramienta para generar
+        bienestar, entendiendo que crear páginas web no solo se trata de escribir código, sino también de transmitir
+        emociones, fomentar la inclusión y diseñar experiencias que hagan sentir bien al usuario. En la vida
+        comunidad más humana, empática y creativa.
+      </p>
+    </section>
+
+    <!-- INTERACTIVO -->
+    <section id="interactivo" class="card interactive">
+      <h2>Tu medidor de felicidad</h2>
+      <p class="sub">Suma sonrisas y descubre micro-acciones para mejorar tu día.</p>
+
+      <div class="counter">
+        <div class="count" id="count">0</div>
+        <button id="btn-sonrisa" class="btn">+1 sonrisa 😊</button>
+        <div class="progress">
+          <div id="bar" class="bar" style="width: 0%"></div>
+        </div>
+        <small id="meta" class="meta">Meta diaria: 10 sonrisas</small>
+      </div>
+
+      <div class="ideas">
+        <button id="btn-idea" class="btn ghost">Dame una idea</button>
+        <p id="idea" class="idea">Haz clic para una micro-acción de felicidad ✨</p>
+      </div>
+
+      <!-- contenedor para las chispas/emoji -->
+      <div id="spark-layer" aria-hidden="true"></div>
+    </section>
   </main>
-  <script src="/js/script.js"></script>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Hecho con ♡ para promover bienestar y comunidad.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
+
 </html>

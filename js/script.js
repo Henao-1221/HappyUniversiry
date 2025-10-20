@@ -1,105 +1,71 @@
-// Utilidades de almacenamiento local
+// ---------- Utilidades ----------
+const $ = (sel) => document.querySelector(sel);
+
 const store = {
-  get:(k,def)=>{ try { return JSON.parse(localStorage.getItem(k)) ?? def } catch { return def }},
-  set:(k,v)=> localStorage.setItem(k, JSON.stringify(v))
+  get(key, fallback){ try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch{ return fallback; } },
+  set(key, val){ localStorage.setItem(key, JSON.stringify(val)); }
 };
 
-// --- Galería ---
-const fileInput = document.getElementById('fileInput');
-const gallery = document.getElementById('gallery');
-const clearGallery = document.getElementById('clearGallery');
-const heroPreview = document.getElementById('heroPreview');
+// ---------- Contador de sonrisas ----------
+const COUNT_KEY = "felicidad_count";
+const GOAL = 10;
 
-function renderGallery(){
-  const items = store.get('gallery', []);
-  gallery.innerHTML = '';
-  items.forEach(({src,caption},i)=>{
-    const fig = document.createElement('figure');
-    fig.className = 'card-img';
-    fig.innerHTML = `<img src="${src}" alt="Foto del festival ${i+1}"><span>${caption||'Sin descripción'}</span>`;
-    gallery.appendChild(fig);
-  });
-  if(items[0]) heroPreview.src = items[0].src;
+const countEl = $("#count");
+const barEl = $("#bar");
+const metaEl = $("#meta");
+const btnSmile = $("#btn-sonrisa");
+const sparkLayer = $("#spark-layer");
+
+let count = store.get(COUNT_KEY, 0);
+renderCount();
+
+btnSmile.addEventListener("click", () => {
+  count++;
+  store.set(COUNT_KEY, count);
+  renderCount();
+  burstSparks();
+});
+
+function renderCount(){
+  countEl.textContent = count;
+  const pct = Math.min(100, Math.round((count / GOAL) * 100));
+  barEl.style.width = pct + "%";
+  metaEl.textContent = pct >= 100 ? "¡Meta lograda! Sigue sumando sonrisas 😄" : `Meta diaria: ${GOAL} sonrisas`;
 }
 
-fileInput?.addEventListener('change', async (e)=>{
-  const files = [...e.target.files];
-  const current = store.get('gallery', []);
-  for(const f of files){
-    const data = await f.arrayBuffer();
-    const base64 = btoa(String.fromCharCode(...new Uint8Array(data)));
-    current.push({src:`data:${f.type};base64,${base64}`, caption: f.name.replace(/\.[^.]+$/,'')});
+// pequeñas chispas/emoji que flotan al sumar
+const EMOJI = ["😊","✨","💚","🌟","🎉","😄","🫶","💫"];
+function burstSparks(){
+  for(let i=0;i<10;i++){
+    const s = document.createElement("div");
+    s.className = "spark";
+    s.textContent = EMOJI[Math.floor(Math.random()*EMOJI.length)];
+    const x = Math.random()*100;         // posición horizontal %
+    const y = 70 + Math.random()*10;     // posición vertical inicial %
+    s.style.left = x + "%";
+    s.style.top = y + "%";
+    s.style.transform = `translateY(0) rotate(${(Math.random()*30-15)}deg)`;
+    sparkLayer.appendChild(s);
+    setTimeout(()=> s.remove(), 1000);
   }
-  store.set('gallery', current);
-  renderGallery();
-  e.target.value = '';
+}
+
+// ---------- Ideas de micro-acciones ----------
+const ideas = [
+  "Envía un mensaje de agradecimiento a alguien que te ayudó hoy.",
+  "Toma 3 respiraciones profundas mirando por la ventana.",
+  "Camina 5 minutos y observa algo bello del campus.",
+  "Comparte un chiste con un compañero de clase.",
+  "Escribe 2 cosas por las que te sientas agradecido ahora.",
+  "Bebe agua y estírate 30 segundos.",
+  "Cambia tu fondo de pantalla por una foto que te haga sonreír.",
+  "Pon una canción que te anime y escucha 1 minuto."
+];
+
+const btnIdea = $("#btn-idea");
+const ideaEl = $("#idea");
+
+btnIdea.addEventListener("click", () => {
+  const next = ideas[Math.floor(Math.random()*ideas.length)];
+  ideaEl.textContent = next;
 });
-
-clearGallery?.addEventListener('click', ()=>{
-  if(confirm('¿Seguro que quieres limpiar la galería?')){
-    store.set('gallery', []);
-    renderGallery();
-  }
-});
-
-// --- Reflexión (150–200 palabras) ---
-const reflection = document.getElementById('reflection');
-const wordCount = document.getElementById('wordCount');
-const reflectionForm = document.getElementById('reflectionForm');
-const resetReflection = document.getElementById('resetReflection');
-
-function countWords(t){ return (t.trim().match(/\b\w+\b/gu)||[]).length; }
-function updateCount(){ wordCount.textContent = countWords(reflection.value) + ' palabras'; }
-
-reflection?.addEventListener('input', updateCount);
-resetReflection?.addEventListener('click', ()=>{ reflection.value=''; updateCount(); });
-
-reflectionForm?.addEventListener('submit', (e)=>{
-  e.preventDefault();
-  const text = reflection.value.trim();
-  const n = countWords(text);
-  if(n < 150 || n > 200){
-    alert('Tu reflexión debe tener entre 150 y 200 palabras.');
-    return;
-  }
-  store.set('reflection', {text, date: new Date().toISOString()});
-  alert('Reflexión guardada ✅');
-});
-
-// cargar reflexión guardada si existe
-(function preloadReflection(){
-  const saved = store.get('reflection', null);
-  if(saved?.text){ reflection.value = saved.text; }
-  updateCount();
-})();
-
-// --- Interacción: Contador de sonrisas ---
-const smileBtn = document.getElementById('smileBtn');
-const smileCount = document.getElementById('smileCount');
-const resetSmile = document.getElementById('resetSmile');
-
-function renderSmile(){ smileCount.textContent = store.get('smiles', 0); }
-smileBtn?.addEventListener('click', ()=>{ store.set('smiles', store.get('smiles',0)+1); renderSmile(); });
-resetSmile?.addEventListener('click', ()=>{ if(confirm('¿Reiniciar contador?')){ store.set('smiles', 0); renderSmile(); }});
-renderSmile();
-
-// --- Interacción: Micro-animación de burbuja ---
-const bubble = document.getElementById('bubble');
-const playground = document.querySelector('.playground');
-
-playground?.addEventListener('pointermove', (e)=>{
-  const rect = playground.getBoundingClientRect();
-  const x = (e.clientX - rect.left) / rect.width;
-  const y = (e.clientY - rect.top) / rect.height;
-  const tx = (x*100);       // 0..100
-  const ty = (y*100);       // 0..100
-  bubble.style.transform = `translate(calc(${tx}% - 50%), calc(${ty}% - 50%)) scale(1.02)`;
-});
-playground?.addEventListener('pointerleave', ()=>{
-  bubble.style.transform = 'translate(-50%,-50%)';
-});
-
-// Accesibilidad: enfoque visible por teclado
-const aStyle = document.createElement('style');
-aStyle.textContent=':focus{outline:3px dashed var(--accent);outline-offset:2px}';
-document.head.appendChild(aStyle);
